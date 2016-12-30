@@ -1,0 +1,83 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Overview";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Penny-Wise</title>
+    <link rel="icon" href="~/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="~/css/main.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine" type="text/css">
+</head>
+<body>
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Menu -->
+            <nav class="sidebar-nav">
+                <div class="sidebar-brand">
+                    <a href="overview.html">
+                        <div class="logo"></div>
+                        <div class="logo-text">Penny<br>Wise</div>
+                    </a>
+                </div>
+                <ul>
+                    <li class="overview"><a href="Overview" class="active">Overview</a></li>
+                    <li class="expenses"><a href="Expenses">Expenses</a></li>
+                    <li class="incomes"><a href="Incomes">Incomes</a></li>
+                    <li class="accounts"><a href="Accounts">Accounts</a></li>
+                    <li class="goals"><a href="Goals">Goals</a></li>
+                    <li class="reports"><a href="Reports">Reports</a></li>
+                    <li class="profile"><a href="Profile">Profile</a></li>
+                    <li class="logout"><a href="#logout">Log out</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <div class="container">
+                <a class="button button-action" id="button-add" href="#add">+</a>
+                <a class="button" id="current-month">November 2016</a>
+                <select class="select-account">
+                    <option value="transaction-account">Transaction account</option>
+                    <option value="cash">Cash</option>
+                </select>
+                <div id="add" class="overlay">
+                    <div id="add-expense-income-form" class="form">
+                        <ul>
+                            <li>
+                                <input type="radio" name="addnew" value="expense" id="radio-expense" checked>
+                                <label for="radio-expense">Add expense</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="addnew" value="income" id="radio-income">
+                                <label for="radio-income">Add income</label>
+                            </li>
+                        </ul>
+                        <input type="number" name="quantity" placeholder="0.0 (€)">
+                        <input type="text" name="category" placeholder="category">
+                        <input type="date" name="date">
+                        <div id="icon-container">
+                            <div class="icon-cancel"></div>
+                            <div class="icon-confirm"></div>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="canvas-line-chart" class="overview"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="assets/js/line-chart.js"></script>
+</body>

@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Incomes";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Penny-Wise</title>
+    <link rel="icon" href="~/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="~/css/main.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine" type="text/css">
+</head>
+<body>
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Menu -->
+            <nav class="sidebar-nav">
+                <div class="sidebar-brand">
+                    <a href="overview.html">
+                        <div class="logo"></div>
+                        <div class="logo-text">Penny<br>Wise</div>
+                    </a>
+                </div>
+                <ul>
+                    <li class="overview"><a href="Overview">Overview</a></li>
+                    <li class="expenses"><a href="Expenses">Expenses</a></li>
+                    <li class="incomes"><a href="Incomes" class="active">Incomes</a></li>
+                    <li class="accounts"><a href="Accounts">Accounts</a></li>
+                    <li class="goals"><a href="Goals">Goals</a></li>
+                    <li class="reports"><a href="Reports">Reports</a></li>
+                    <li class="profile"><a href="Profile">Profile</a></li>
+                    <li class="logout"><a href="#logout">Log out</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <div class="container">
+                <a class="button" id="current-month">November 2016</a>
+                <select id="select-account">
+                    <option value="transaction-account">Transaction account</option>
+                    <option value="cash">Cash</option>
+                </select>
+                <canvas id="canvas-bar-graph" class="expenses"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="assets/js/bar-graph.js"></script>
+
+</body>

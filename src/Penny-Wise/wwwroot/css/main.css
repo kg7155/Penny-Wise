@@ -1,0 +1,455 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    color: #312450;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.main {
+    padding-left: 20px;
+    height: 100%;
+}
+
+.main-index {
+    padding-left: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar {
+    max-width: 25%;
+    min-width: 230px;
+    height: 100%;
+}
+
+.sidebar h3 {
+    padding-left: 20px;
+}
+
+.sidebar-nav {
+    width: 100%;
+    height: 100%;
+    background-color: #e4ddf2;
+}
+
+.sidebar-brand {
+    overflow: auto;
+    background-color: #e4ddf2;
+}
+
+.sidebar-brand .logo {
+    background: transparent url("../../images/logo.svg") no-repeat;
+    height: 55px;
+    width: 130px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    float: left;
+}
+
+.sidebar-brand .logo-text-index {
+    font-family: Tangerine;
+    color: #312450;
+    font-size: 35px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 40px;
+    margin-left: 150px;
+    position: fixed;
+}
+
+.sidebar-brand .logo-text {
+    font-family: Tangerine;
+    color: #312450;
+    font-size: 35px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 40px;
+    margin-right: 20px;
+    float:right;
+}
+
+.sidebar-nav ul {
+    list-style-type: none;
+    background-color: #312450;
+    height: 805px;
+    overflow: auto;
+}
+
+.sidebar-nav li {
+    line-height: 55px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    color: #b3a6cc;
+    text-decoration: none;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.65px;
+    transition: color 0.2s ease-in;
+    margin-left: 62px;
+}
+
+.sidebar-nav li a.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-nav li a:hover:not(.active) {
+    color: #e4ddf2;
+}
+
+.sidebar-nav li.overview {
+    background: transparent url("../../images/icon-overview.png") no-repeat 25px;
+}
+
+.sidebar-nav li.expenses {
+    background: transparent url("../../images/icon-expenses.png") no-repeat 25px;
+}
+
+.sidebar-nav li.incomes {
+    background: transparent url("../../images/icon-incomes.png") no-repeat 25px;
+}
+
+.sidebar-nav li.accounts {
+    background: transparent url("../../images/icon-accounts.png") no-repeat 25px;
+}
+
+.sidebar-nav li.goals {
+    background: transparent url("../../images/icon-goals.png") no-repeat 25px;
+}
+
+.sidebar-nav li.reports {
+    background: transparent url("../../images/icon-reports.png") no-repeat 25px;
+}
+
+.sidebar-nav li.profile {
+    background: transparent url("../../images/icon-profile.png") no-repeat 25px;
+}
+
+.sidebar-nav li.logout {
+    background: transparent url("../../images/icon-logout.png") no-repeat 25px;
+}
+
+#login-form {
+    background-color: #e4ddf2;
+}
+
+#login-form .container {
+    align-content: center;
+    margin-top: 90px;
+}
+
+#login-form input{
+    width: 90%;
+    height: 25px;
+    margin: 5px 0px 10px 10px;
+    padding-left: 5px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#login-form .container button {
+    background-color: #312450;
+    color: #ffffff;
+    width: 90%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border: 0px;
+}
+
+#login-form .container .form-control,
+#login-form .container label,
+#signup-form .container label,
+#signup-form .container .form-control,
+#login-form .container p {
+    font-size: 12px;
+    margin-left: 10px;
+    padding-top: 5px;
+}
+
+#login-form .container .checkbox input {
+    margin: 5px 0px 10px 0px;
+    padding-top: 5px;
+    height: initial;
+    width: initial;
+}
+
+ .main-index .main-wallpaper {
+    background: transparent url("../../images/index-wallpaper.png") no-repeat;
+    background-size: cover;
+    height: 100%;
+    margin-top: -15px;
+    margin-left: -20px;
+}
+
+#signup-form .container {
+    width: 27%;
+    margin: 0px auto 0px -230px;
+    top: 45%;
+    left: 50%;
+    position: absolute;
+}
+
+#signup-form .container input {
+    width: 100%;
+    height: 25px;
+    margin: 5px 0px 5px 10px;
+    padding-left: 5px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#signup-form .container button {
+    background-color: #312450;
+    color: #ffffff;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border: 0px;
+}
+
+.brand {
+    overflow: auto;
+    width: 27%;
+    margin: -150px auto 0px -230px;
+    top: 45%;
+    left: 50%;
+    position: absolute;
+}
+
+.brand .logo {
+    background: transparent url("../../images/logo.svg") no-repeat;
+    height: 55px;
+    width: 130px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    float: left;
+}
+
+.brand .logo-text {
+    font-family: Tangerine;
+    color: #312450;
+    font-size: 35px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 40px;
+    margin-left: 150px;
+    position: fixed;
+    float:right;
+}
+
+.main > .container {
+    padding-top: 20px;
+    margin-left: 20px;
+    width: inherit;
+    height: auto;
+    position: absolute;
+}
+
+.main > .container select {
+    background-color: #312450;
+    color: #ffffff;
+    margin-right: 4px;
+    padding: 5px;
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    float: left;
+}
+
+.main > .container .button {
+    background-color: #b3a6cc;
+    color: #312450;
+    text-align: center;
+    border: 0px;
+    float: left;
+    padding: 7px;
+    margin-right: 4px;
+    font-size: 0.72em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.main > .container .button-action {
+    background-color: #312450;
+    color: #ffffff;
+    transition: all 0.3s ease-out;
+}
+
+.main > .container #button-add {
+    margin-right: 210px;
+}
+
+.main > .container .button-action:hover {
+    background: #b3a6cc;
+    color: #312450;
+}
+
+.overlay {
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+}
+
+.form ul {
+    list-style: none;
+}
+
+.form input[type=radio] {
+    visibility: hidden;
+    display: none;
+}
+
+.form input:checked + label {
+    background: #b3a6cc;
+    color: #312450;
+}
+
+.form input + label {
+    background-color: #312450;
+    color: #ffffff;
+    text-align: center;
+    border: 0px;
+    font-size: 0.72em;
+    padding: 7px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+#add-expense-income-form {
+    margin-top: 125px;
+    width: 210px;
+    transition: all 0.3s ease-out;
+}
+
+.form ul {
+    margin-bottom: 4px;
+}
+
+.form ul li {
+    display: inline;
+}
+
+.form input {
+    margin-top: 5px;
+    height: 20px;
+    width: inherit;
+}
+
+.form input[type=date] {
+    color: darkgray
+}
+
+#icon-container {
+    position: relative;
+    margin-top: 10px;
+    height: 50px;
+}
+
+.icon-cancel {
+    background: transparent url("../../images/icon-cancel.png") no-repeat;
+    height: 20px;
+    width: 20px;
+    float: left;
+}
+
+.icon-confirm {
+    background: transparent url("../../images/icon-confirm.png") no-repeat;
+    height: 20px;
+    width: 20px;
+    float: right;
+}
+
+#generate-report-form select {
+    margin-top: 5px;
+}
+
+#generate-report-form #button-generate {
+    position: fixed;
+    top: 120px;
+    left: 272px;
+    padding: 7px;
+}
+
+.container-account-info {
+    position: fixed;
+    top: 300px;
+    color: #312450;
+    font-size: 17px;   
+}
+
+.container-account-info div {
+    padding: 5px;
+    margin-top: 15px;
+    background-color: #e4ddf2;
+}
+
+.text-action {
+    font-size: 12px;
+}
+
+#save {
+    margin-top: 9px;
+}
+
+#button-delete-account {
+    margin-top: 70px;
+}
+
+#canvas-line-chart {
+    position: absolute;
+    top: 330px;
+    left: 0px;
+}
+
+#canvas-bar-graph {
+    position: absolute;
+    top: 200px;
+    left: 0px;
+}
+
+.container-video {
+    top: 25px;
+    left: 270px;
+}
+
+#canvas-video {
+    display: none;
+}
+
+.button-photo-capture {
+    margin-top: 9px;
+}

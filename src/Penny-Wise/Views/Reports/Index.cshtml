@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Reports";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Penny-Wise</title>
+    <link rel="icon" href="~/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="~/css/main.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine" type="text/css">
+</head>
+<body>
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Menu -->
+            <nav class="sidebar-nav">
+                <div class="sidebar-brand">
+                    <a href="overview.html">
+                        <div class="logo"></div>
+                        <div class="logo-text">Penny<br>Wise</div>
+                    </a>
+                </div>
+                <ul>
+                    <li class="overview"><a href="Overview">Overview</a></li>
+                    <li class="expenses"><a href="Expenses">Expenses</a></li>
+                    <li class="incomes"><a href="Incomes">Incomes</a></li>
+                    <li class="accounts"><a href="Accounts">Accounts</a></li>
+                    <li class="goals"><a href="Goals">Goals</a></li>
+                    <li class="reports"><a href="Reports" class="active">Reports</a></li>
+                    <li class="profile"><a href="Profile">Profile</a></li>
+                    <li class="logout"><a href="#logout">Log out</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <div class="container">
+                <div id="generate-report-form" class="form">
+                    <ul>
+                        <li>
+                            <input type="radio" name="choose-type" value="expenses-incomes" id="radio-expenses-incomes" checked>
+                            <label for="radio-expenses-incomes">Expenses and Incomes</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="choose-type" value="expenses" id="radio-expenses">
+                            <label for="radio-expenses">Expenses</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="choose-type" value="incomes" id="radio-incomes">
+                            <label for="radio-incomes">Incomes</label>
+                        </li>
+                    </ul>
+                    <select id="select-month">
+                        <option value="all-time">All time</option>
+                        <option value="january">January</option>
+                        <option value="february">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="august">August</option>
+                        <option value="september">September</option>
+                        <option value="october">October</option>
+                        <option value="november">November</option>
+                        <option value="december">December</option>
+                    </select>
+                    <select id="select-year">
+                        <option>/</option>
+                        <option>2014</option>
+                        <option>2015</option>
+                        <option>2016</option>
+                    </select>
+                    <a class="button button-action" id="button-generate">Generate!</a>
+                </div>
+                <canvas id="canvas-line-chart" class="reports"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="assets/js/line-chart.js"></script>
+
+</body>

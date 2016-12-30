@@ -1,0 +1,58 @@
+﻿@model RegisterViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Penny-Wise</title>
+    <link rel="icon" href="~/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="~/css/main.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine" type="text/css">
+</head>
+<body>
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Main -->
+        <div class="main">
+            <div class="inner-center">
+                <div class="brand">
+                    <div class="logo"></div>
+                    <div class="logo-text">Penny<br>Wise</div>
+                </div>
+                <div id="signup-form">
+                    <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div class="container">
+                            <label asp-for="FirstName">First name:</label>
+                                <input asp-for="FirstName" class="form-control" placeholder="Penny" type="text" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <label asp-for="LastName">Last name:</label>
+                                <input asp-for="LastName" class="form-control" placeholder="Owl" type="text"/>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            <label asp-for="Email">E-mail:</label>
+                                <input asp-for="Email" class="form-control" placeholder="owl@penny-wise.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            <label asp-for="Password">Password:</label>
+                                <input asp-for="Password" class="form-control" placeholder="********"/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            <label asp-for="ConfirmPassword">Repeat password:</label>
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="********"/>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <button type="submit">Sign up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+
+</body>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
