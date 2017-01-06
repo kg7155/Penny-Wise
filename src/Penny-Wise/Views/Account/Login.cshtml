@@ -119,13 +119,13 @@
                     </a>
                 </div>
                 <div id="login-form">
-                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="~/Overview" method="post">
                         <div class="container">
                             <label asp-for="Email">E-mail: </label>
-                            <input asp-for="Email" class="form-control" placeholder="owl@penny-wise.com" />
+                            <input asp-for="Email" class="form-control" placeholder="owl@penny-wise.com" value="jack@longtoes.com" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                             <label asp-for="Password">Password: </label>
-                            <input asp-for="Password" class="form-control" placeholder="********" />
+                            <input asp-for="Password" class="form-control" placeholder="********" value="$Demo123"/>
                             <span asp-validation-for="Password" class="text-danger"></span>
                             <button type="submit">Log in</button>
                             <div class="checkbox">
@@ -134,8 +134,8 @@
                                     @Html.DisplayNameFor(m => m.RememberMe)
                                 </label>
                             </div>
-                            <p>Forgot your password? Click <a asp-area="" asp-controller="UserAccount" asp-action="ForgotPassword">here</a>!</p>
-                            <p>Sign up <a asp-area="" asp-controller="UserAccount" asp-action="Register">here</a>!</p>
+                            <p>Forgot your password? Click <a asp-area="" asp-controller="Account" asp-action="ForgotPassword">here</a>!</p>
+                            <p>Sign up <a asp-area="" asp-controller="Account" asp-action="Register">here</a>!</p>
                         </div>
                     </form>
                 </div>

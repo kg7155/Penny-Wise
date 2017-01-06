@@ -1,4 +1,65 @@
-﻿@{
+﻿@model LoginViewModel
+
+@{
     Layout = null;
     ViewData["Title"] = "Home";
 }
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Penny-Wise</title>
+    <link rel="icon" href="~/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="~/css/main.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine" type="text/css">
+</head>
+<body>
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Main -->
+        <div class="main-index">
+            <div class="main-wallpaper">
+            </div>
+        </div>
+
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Menu -->
+            <nav class="sidebar-nav">
+                <div class="sidebar-brand">
+                    <a href="overview.html">
+                        <div class="logo"></div>
+                        <div class="logo-text-index">Penny<br>Wise</div>
+                    </a>
+                </div>
+                <div id="login-form">
+                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div class="container">
+                            <label asp-for="Email">E-mail: </label>
+                            <input asp-for="Email" class="form-control" placeholder="owl@penny-wise.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label asp-for="Password">Password: </label>
+                            <input asp-for="Password" class="form-control" placeholder="********" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <button type="submit">Log in</button>
+                            <div class="checkbox">
+                                <label asp-for="RememberMe">
+                                    <input asp-for="RememberMe" />
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                            <p>Forgot your password? Click <a asp-area="" asp-controller="UserAccount" asp-action="ForgotPassword">here</a>!</p>
+                            <p>Sign up <a asp-area="" asp-controller="Account" asp-action="Register">here</a>!</p>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+
+</body>
