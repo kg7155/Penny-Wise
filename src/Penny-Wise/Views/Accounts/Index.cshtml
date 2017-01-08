@@ -1,11 +1,41 @@
-﻿@{
+﻿@model IEnumerable<Penny_Wise.Models.UserAccount>
+
+@{
     ViewData["Title"] = "Accounts";
 }
 
 <div class="main">
     <div class="container">
-        <a class="button button-action">Add account</a>
-        @*<a class="button button-action">Make transaction</a>*@
-        <a class="button button-action">Edit</a>
+        <a asp-action="AddNew" class="button button-action">Add new account</a>
     </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Balance (EUR)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+
+

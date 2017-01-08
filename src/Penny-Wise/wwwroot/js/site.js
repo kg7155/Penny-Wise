@@ -1,4 +1,6 @@
-﻿// Write your Javascript code.
-//$(document).ready(function () {
-//    $('#' + activeMenu).addClass('active');
-//});
+﻿function confirmAndDelete() {
+    var result = confirm("Are you sure you want to delete your account?");
+    if (result) {
+        window.location = "/Profile/DeleteAccount";
+    }
+}

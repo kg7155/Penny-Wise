@@ -26,11 +26,9 @@
                 <div id="signup-form">
                     <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                         <div class="container">
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <label asp-for="FirstName">First name:</label>
-                                <input asp-for="FirstName" class="form-control" placeholder="Penny" type="text" />
-                            <label asp-for="LastName">Last name:</label>
-                                <input asp-for="LastName" class="form-control" placeholder="Owl" type="text"/>
+                            <div id="registration-validation" asp-validation-summary="All" class="text-danger"></div>
+                            <label asp-for="Name">Name:</label>
+                                <input asp-for="Name" class="form-control" placeholder="Penny Owl" type="text"/>
                             <label asp-for="Email">E-mail:</label>
                                 <input asp-for="Email" class="form-control" placeholder="owl@penny-wise.com" />
                             <label asp-for="Password">Password:</label>

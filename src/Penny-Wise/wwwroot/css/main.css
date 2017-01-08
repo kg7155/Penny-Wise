@@ -46,6 +46,10 @@ html, body {
     background-color: #e4ddf2;
 }
 
+.main-menu {
+    background-color: #312450;
+}
+
 .sidebar-brand {
     overflow: auto;
     background-color: #e4ddf2;
@@ -88,7 +92,6 @@ html, body {
 .sidebar-nav ul {
     list-style-type: none;
     background-color: #312450;
-    height: 805px;
     overflow: auto;
 }
 
@@ -150,6 +153,25 @@ html, body {
 
 #login-form {
     background-color: #e4ddf2;
+}
+
+#login-validation ul {
+    background-color: #e4ddf2;
+    font-family: 'Open Sans', sans-serif;
+    margin-left: 10px;
+    font-weight: bold;
+    list-style: none;
+}
+
+#login-validation li {
+    line-height: 25px;
+}
+
+#registration-validation ul {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0px 0px 10px 10px;
+    font-weight: bold;
+    list-style: none;
 }
 
 #login-form .container {
@@ -294,6 +316,7 @@ html, body {
     letter-spacing: 1px;
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .main > .container .button-action {
@@ -411,10 +434,16 @@ html, body {
     font-size: 17px;   
 }
 
-.container-account-info div {
+.data {
+    width: 202px;
+}
+
+.container-account-info input {
     padding: 5px;
     margin-top: 15px;
     background-color: #e4ddf2;
+    border: none;
+    width: 202px;
 }
 
 .text-action {
@@ -423,10 +452,12 @@ html, body {
 
 #save {
     margin-top: 9px;
+    cursor: pointer;
 }
 
 #button-delete-account {
     margin-top: 70px;
+    cursor: pointer;
 }
 
 #canvas-line-chart {
@@ -452,4 +483,33 @@ html, body {
 
 .button-photo-capture {
     margin-top: 9px;
+}
+
+.table {
+    margin: 70px 0px 0px 15px;
+}
+
+.table a {
+    text-decoration: none;
+    color: #312450;
+    background-color: #e4ddf2;
+    padding: 3px;
+    font-size: 12px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+.add-form {
+    margin: 3px 0px 0px 5px;
+}
+
+.add-form .data input {
+    margin: 5px 0px 5px 0px;
+}
+
+.add-form #add-account {
+    margin-top: 5px;
 }

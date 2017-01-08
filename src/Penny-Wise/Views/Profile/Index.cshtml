@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Penny_Wise.Controllers.ProfileViewModel
+@{
     ViewData["Title"] = "Profile";
 }
 
@@ -11,17 +12,23 @@
         </div>
         <button id="snap" class="button button-action button-photo-capture">Snap!</button>
         <button id="take-new-photo" class="button button-action button-photo-capture">Take a new photo</button>
-        <div class="container-account-info">
-            <div id="name" contenteditable="true">Jack Longtoes</div>
-            <div id="email" contenteditable="true">jack.longtoes@pennywise.com</div>
-            <div id="password" contenteditable="true">*********</div>
-            <a class="text-action button button-action" id="save">Save</a><br />
-            <a class="button button-action" id="button-delete-account">Delete my Penny-Wise account. :(</a>
-        </div>
+        <form asp-controller="Profile" asp-action="Index" method="post">
+            <div class="container-account-info">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="data">
+                    <input asp-for="Name" contenteditable="true" class="form-control" type="text" />
+                    <input asp-for="Email" readonly="readonly"/>
+                    <input asp-for="Password" contenteditable="true" class="form-control" placeholder="********" />    
+                </div>
+                <button type="submit" class="text-action button button-action" id="save">Save</button><br/>
+                <a class="button button-action" id="button-delete-account" onclick="confirmAndDelete()">Delete my Penny-Wise account. :(</a>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
     <!-- Scripts -->
-    <script type="text/javascript" src="assets/js/photo-capture.js"></script>
+    <script type="text/javascript" src="~/js/photo-capture.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
 }

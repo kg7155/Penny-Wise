@@ -105,7 +105,7 @@ namespace Penny_Wise.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { Name = model.Name, UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
                 if (result.Succeeded)

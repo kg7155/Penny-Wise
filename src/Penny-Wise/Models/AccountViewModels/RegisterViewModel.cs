@@ -8,11 +8,10 @@ namespace Penny_Wise.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Display(Name = "First name")]
-        public string FirstName { get; set; }
-
-        [Display(Name = "Last name")]
-        public string LastName { get; set; }
+        [Required]
+        [MaxLength(25)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
