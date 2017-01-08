@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Penny_Wise.Models
 {
@@ -11,6 +8,6 @@ namespace Penny_Wise.Models
 
         public string Name { get; set; }
 
-        public List<CategoryElement> CategoryElements { get; set; }
+        public List<CategoryTransaction> CategoryElements { get; set; }
     }
 }

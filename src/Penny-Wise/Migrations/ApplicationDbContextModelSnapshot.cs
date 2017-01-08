@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Penny_Wise.Data;
 
-namespace Penny_Wise.Data.Migrations
+namespace PennyWise.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161230134026_InitialCreate")]
-    partial class InitialCreate
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -123,24 +122,6 @@ namespace Penny_Wise.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.Account", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<double>("Balance");
-
-                    b.Property<string>("Type");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Accounts");
-                });
-
             modelBuilder.Entity("Penny_Wise.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -156,13 +137,11 @@ namespace Penny_Wise.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasAnnotation("MaxLength", 256);
@@ -207,37 +186,35 @@ namespace Penny_Wise.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.CategoryElement", b =>
+            modelBuilder.Entity("Penny_Wise.Models.CategoryTransaction", b =>
                 {
                     b.Property<int>("CategoryID");
 
-                    b.Property<int>("ElementID");
+                    b.Property<int>("TransactionID");
 
-                    b.HasKey("CategoryID", "ElementID");
+                    b.HasKey("CategoryID", "TransactionID");
 
-                    b.HasIndex("ElementID");
+                    b.HasIndex("TransactionID");
 
-                    b.ToTable("CategoryElement");
+                    b.ToTable("CategoryTransaction");
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.Element", b =>
+            modelBuilder.Entity("Penny_Wise.Models.Goal", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AccountID");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<double>("Amount");
 
-                    b.Property<bool>("Type");
-
-                    b.Property<double>("Value");
+                    b.Property<DateTime>("DateTo");
 
                     b.HasKey("ID");
 
                     b.HasIndex("AccountID");
 
-                    b.ToTable("Elements");
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Penny_Wise.Models.Movie", b =>
@@ -258,6 +235,44 @@ namespace Penny_Wise.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Movie");
+                });
+
+            modelBuilder.Entity("Penny_Wise.Models.Transaction", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AccountID");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<bool>("Type");
+
+                    b.Property<double>("Value");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AccountID");
+
+                    b.ToTable("Transaction");
+                });
+
+            modelBuilder.Entity("Penny_Wise.Models.UserAccount", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<double>("Balance");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -297,31 +312,38 @@ namespace Penny_Wise.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.Account", b =>
-                {
-                    b.HasOne("Penny_Wise.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Accounts")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("Penny_Wise.Models.CategoryElement", b =>
+            modelBuilder.Entity("Penny_Wise.Models.CategoryTransaction", b =>
                 {
                     b.HasOne("Penny_Wise.Models.Category", "Category")
                         .WithMany("CategoryElements")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Penny_Wise.Models.Element", "Element")
-                        .WithMany("CategoryElements")
-                        .HasForeignKey("ElementID")
+                    b.HasOne("Penny_Wise.Models.Transaction", "Transaction")
+                        .WithMany("CategoryTransactions")
+                        .HasForeignKey("TransactionID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.Element", b =>
+            modelBuilder.Entity("Penny_Wise.Models.Goal", b =>
                 {
-                    b.HasOne("Penny_Wise.Models.Account", "Account")
+                    b.HasOne("Penny_Wise.Models.UserAccount", "Account")
+                        .WithMany("Goals")
+                        .HasForeignKey("AccountID");
+                });
+
+            modelBuilder.Entity("Penny_Wise.Models.Transaction", b =>
+                {
+                    b.HasOne("Penny_Wise.Models.UserAccount", "Account")
                         .WithMany("Elements")
                         .HasForeignKey("AccountID");
+                });
+
+            modelBuilder.Entity("Penny_Wise.Models.UserAccount", b =>
+                {
+                    b.HasOne("Penny_Wise.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Accounts")
+                        .HasForeignKey("ApplicationUserId");
                 });
         }
     }

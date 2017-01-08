@@ -12,6 +12,8 @@ namespace Penny_Wise.Models
 
         public ApplicationUser ApplicationUser { get; set; }
 
-        public List<Element> Elements { get; set; }
+        public List<Transaction> Elements { get; set; }
+
+        public List<Goal> Goals { get; set; }
     }
 }
