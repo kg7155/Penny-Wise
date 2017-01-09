@@ -1,0 +1,34 @@
+@model Penny_Wise.Models.Goal
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="main">
+    <div class="container">
+        <form asp-action="Edit">
+            <div class="add-form">
+                <h4>Edit goal:</h4>
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="data">
+                    <select asp-for="Account" class="select-account" id="goals-select-account" name="goals-select-account">
+                        @foreach (var acc in ViewBag.Accounts)
+                        {
+                            <option value="@acc.ID">@acc.Type</option>
+                        }
+                    </select>
+                    <label asp-for="Amount">Amount:</label>
+                        <input asp-for="Amount"/>
+                    <label asp-for="DateTo">Till:</label>
+                    <input type="date" asp-for="DateTo"/>
+                </div>
+                <button type="submit" id="add-account" class="text-action button button-action">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

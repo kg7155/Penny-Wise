@@ -1,4 +1,4 @@
-@model Penny_Wise.Models.UserAccount
+@model Penny_Wise.Models.Goal
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,22 +8,22 @@
     <div class="container">
         <form asp-action="Delete">
             <div class="add-form">
-                <h4>Are you sure you want to delete this account:</h4>
+                <h4>Are you sure you want to delete this goal:</h4>
                 <br />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="data">
-                    <label asp-for="Type">Name:</label>
-                    <input asp-for="Type" readonly="readonly"/>
-
-                    <label asp-for="Balance">Balance (EUR):</label>
-                    <input asp-for="Balance" readonly="readonly"/>
+                    <label asp-for="Account">Account:</label>
+                        <input asp-for="Account" readonly="readonly" />
+                    <label asp-for="Amount">Amount:</label>
+                        <input asp-for="Amount" readonly="readonly"/>
+                    <label asp-for="DateTo">Till:</label>
+                        <input type="date" asp-for="DateTo" readonly="readonly"/>
                 </div>
                 <button type="submit" id="add-account" class="text-action button button-action">Delete</button>
             </div>
         </form>
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
