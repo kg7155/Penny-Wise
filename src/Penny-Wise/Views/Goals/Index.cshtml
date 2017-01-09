@@ -18,8 +18,10 @@
             </tr>
         </thead>
         <tbody>
+                 
             @foreach (var item in Model)
             {
+                @*@Html.HiddenFor(modelItem => item.Account)*@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Account.Type)
@@ -28,7 +30,7 @@
                         @Html.DisplayFor(modelItem => item.Amount)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DateTo.Date)
+                        @item.DateTo.Date.ToString("MM-dd-yyyy")
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>

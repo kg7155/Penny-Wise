@@ -13,11 +13,11 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="data">
                     <label asp-for="Account">Account:</label>
-                        <input asp-for="Account" readonly="readonly" />
+                        <input asp-for="Account.Type" readonly="readonly" />
                     <label asp-for="Amount">Amount:</label>
                         <input asp-for="Amount" readonly="readonly"/>
                     <label asp-for="DateTo">Till:</label>
-                        <input type="date" asp-for="DateTo" readonly="readonly"/>
+                        <input type="date" asp-for="DateTo" value="@Model.DateTo.ToString("yyyy-MM-dd")" readonly="readonly"/>
                 </div>
                 <button type="submit" id="add-account" class="text-action button button-action">Delete</button>
             </div>

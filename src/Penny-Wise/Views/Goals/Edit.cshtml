@@ -21,7 +21,7 @@
                     <label asp-for="Amount">Amount:</label>
                         <input asp-for="Amount"/>
                     <label asp-for="DateTo">Till:</label>
-                    <input type="date" asp-for="DateTo"/>
+                        <input type="date" asp-for="DateTo" value="@Model.DateTo.ToString("yyyy-MM-dd")"/>
                 </div>
                 <button type="submit" id="add-account" class="text-action button button-action">Edit</button>
             </div>

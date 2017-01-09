@@ -26,7 +26,9 @@ namespace Penny_Wise.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Goals.ToListAsync());
+            //ModelState.Clear();
+            var items = await _context.Goals.Include("Account").ToListAsync();
+            return View(items);
         }
 
         // GET: Goals/AddNew
@@ -44,11 +46,12 @@ namespace Penny_Wise.Controllers
         {
             if (ModelState.IsValid)
             {
-                int accountId = Int32.Parse(Request.Form["goals-select-account"]);
+                int accountId = int.Parse(Request.Form["goals-select-account"]);
                 var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
                 goal.Account = account;
                 _context.Add(goal);
                 await _context.SaveChangesAsync();
+                //ModelState.Clear();
                 return RedirectToAction("Index");
             }
             return View(goal);
@@ -87,6 +90,11 @@ namespace Penny_Wise.Controllers
                 try
                 {
                     _context.Update(goal);
+
+                    int accountId = Int32.Parse(Request.Form["goals-select-account"]);
+                    var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
+                    goal.Account = account;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -113,7 +121,7 @@ namespace Penny_Wise.Controllers
                 return NotFound();
             }
 
-            var goal = await _context.Goals.SingleOrDefaultAsync(m => m.ID == id);
+            var goal = await _context.Goals.Include(o => o.Account).SingleOrDefaultAsync(m => m.ID == id);
             if (goal == null)
             {
                 return NotFound();
