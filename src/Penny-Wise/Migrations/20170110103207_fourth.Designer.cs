@@ -8,8 +8,8 @@ using Penny_Wise.Data;
 namespace PennyWise.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170108231522_{first}")]
-    partial class first
+    [Migration("20170110103207_fourth")]
+    partial class fourth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -187,19 +187,6 @@ namespace PennyWise.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.CategoryTransaction", b =>
-                {
-                    b.Property<int>("CategoryID");
-
-                    b.Property<int>("TransactionID");
-
-                    b.HasKey("CategoryID", "TransactionID");
-
-                    b.HasIndex("TransactionID");
-
-                    b.ToTable("CategoryTransaction");
-                });
-
             modelBuilder.Entity("Penny_Wise.Models.Goal", b =>
                 {
                     b.Property<int>("ID")
@@ -245,6 +232,8 @@ namespace PennyWise.Migrations
 
                     b.Property<int?>("AccountID");
 
+                    b.Property<int?>("CategoryID");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<bool>("Type");
@@ -254,6 +243,8 @@ namespace PennyWise.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("AccountID");
+
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Transaction");
                 });
@@ -313,19 +304,6 @@ namespace PennyWise.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Penny_Wise.Models.CategoryTransaction", b =>
-                {
-                    b.HasOne("Penny_Wise.Models.Category", "Category")
-                        .WithMany("CategoryElements")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Penny_Wise.Models.Transaction", "Transaction")
-                        .WithMany("CategoryTransactions")
-                        .HasForeignKey("TransactionID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Penny_Wise.Models.Goal", b =>
                 {
                     b.HasOne("Penny_Wise.Models.UserAccount", "Account")
@@ -338,6 +316,10 @@ namespace PennyWise.Migrations
                     b.HasOne("Penny_Wise.Models.UserAccount", "Account")
                         .WithMany("Elements")
                         .HasForeignKey("AccountID");
+
+                    b.HasOne("Penny_Wise.Models.Category", "Category")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CategoryID");
                 });
 
             modelBuilder.Entity("Penny_Wise.Models.UserAccount", b =>

@@ -1,0 +1,27 @@
+@model Penny_Wise.Models.Category
+
+@{
+    ViewData["Title"] = "Add new category";
+}
+
+<div class="main">
+    <div class="container">
+        <form asp-action="AddNewCategory">
+            <div class="add-form">
+                <h4>Add new category:</h4>
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="data">
+                    <label asp-for="Name">Name: </label>
+                        <input type="text" asp-for="Name"/>
+                </div>
+                <button type="submit" id="add-account" class="text-action button button-action">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -10,11 +10,12 @@
             <option value="transaction-account">Transaction account</option>
             <option value="cash">Cash</option>
         </select>
+        <a asp-action="AddNew" class="button button-action">Add income</a>        
         <canvas id="canvas-bar-graph" class="expenses"></canvas>
     </div>
 </div>
 
 @section Scripts {
     <!-- Scripts -->
-    <script type="text/javascript" src="assets/js/bar-graph.js"></script>
+    <script type="text/javascript" src="~/js/bar-graph.js"></script>
 }

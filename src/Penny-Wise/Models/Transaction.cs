@@ -12,11 +12,11 @@ namespace Penny_Wise.Models
 
         public double Value { get; set; }
 
+        public Category Category { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public UserAccount Account { get; set; }
-
-        public List<CategoryTransaction> CategoryTransactions { get; set; }
     }
 }

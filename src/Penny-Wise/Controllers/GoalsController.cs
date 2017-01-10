@@ -26,7 +26,6 @@ namespace Penny_Wise.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //ModelState.Clear();
             var items = await _context.Goals.Include("Account").ToListAsync();
             return View(items);
         }
@@ -51,7 +50,6 @@ namespace Penny_Wise.Controllers
                 goal.Account = account;
                 _context.Add(goal);
                 await _context.SaveChangesAsync();
-                //ModelState.Clear();
                 return RedirectToAction("Index");
             }
             return View(goal);

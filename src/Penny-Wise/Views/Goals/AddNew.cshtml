@@ -12,6 +12,7 @@
                 <br />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="data">
+                    <label asp-for="Account">Account:</label><br />
                     <select asp-for="Account" class="select-account" id="goals-select-account" name="goals-select-account">
                         @foreach (var acc in ViewBag.Accounts)
                         {
@@ -19,7 +20,7 @@
                         }
                     </select>
                     <label asp-for="Amount">Amount:</label>
-                        <input asp-for="Amount"/>
+                    <input asp-for="Amount"/>
                     <label asp-for="DateTo">Till:</label>
                     <input type="date" asp-for="DateTo"/>
                 </div>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PennyWise.Migrations
 {
-    public partial class first : Migration
+    public partial class fourth : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -228,6 +228,7 @@ namespace PennyWise.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AccountID = table.Column<int>(nullable: true),
+                    CategoryID = table.Column<int>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     Type = table.Column<bool>(nullable: false),
                     Value = table.Column<double>(nullable: false)
@@ -241,30 +242,12 @@ namespace PennyWise.Migrations
                         principalTable: "Accounts",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoryTransaction",
-                columns: table => new
-                {
-                    CategoryID = table.Column<int>(nullable: false),
-                    TransactionID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryTransaction", x => new { x.CategoryID, x.TransactionID });
                     table.ForeignKey(
-                        name: "FK_CategoryTransaction_Categories_CategoryID",
+                        name: "FK_Transaction_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryTransaction_Transaction_TransactionID",
-                        column: x => x.TransactionID,
-                        principalTable: "Transaction",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -304,11 +287,6 @@ namespace PennyWise.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryTransaction_TransactionID",
-                table: "CategoryTransaction",
-                column: "TransactionID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Goals_AccountID",
                 table: "Goals",
                 column: "AccountID");
@@ -317,6 +295,11 @@ namespace PennyWise.Migrations
                 name: "IX_Transaction_AccountID",
                 table: "Transaction",
                 column: "AccountID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transaction_CategoryID",
+                table: "Transaction",
+                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_ApplicationUserId",
@@ -342,25 +325,22 @@ namespace PennyWise.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CategoryTransaction");
-
-            migrationBuilder.DropTable(
                 name: "Goals");
 
             migrationBuilder.DropTable(
                 name: "Movie");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Transaction");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

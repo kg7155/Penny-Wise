@@ -1,4 +1,7 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="js/bar-graph.js" />
+/// <reference path="js/line-chart.js" />
+/// <reference path="js/photo-capture.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />

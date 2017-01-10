@@ -296,14 +296,13 @@ html, body {
 .main > .container select {
     background-color: #312450;
     color: #ffffff;
-    margin-right: 4px;
+    margin: 0px 4px 5px 0px;
     padding: 5px;
     font-size: 0.72em;
     text-transform: uppercase;
     letter-spacing: 1px;
     float: left;
     width: inherit;
-    margin-bottom: 5px;
 }
 
 .main > .container .button {
@@ -437,7 +436,7 @@ html, body {
 }
 
 .data {
-    width: 150px;
+    width: 200px;
 }
 
 .container-account-info input {
@@ -515,4 +514,14 @@ th, td {
 
 .add-form #add-account {
     margin-top: 5px;
+}
+
+.small-button {
+    text-decoration: none;
+    color: #312450;
+    background-color: #e4ddf2;
+    padding: 6px;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 15px;
 }
