@@ -1,0 +1,32 @@
+@model Penny_Wise.Models.Transaction
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="main">
+    <div class="container">
+        <form asp-action="Delete">
+            <div class="add-form">
+                <h4>Are you sure you want to delete this expense?</h4>
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="data">
+                    <label asp-for="Account">Account:</label>
+                        <input asp-for="Account.Type" readonly="readonly" />
+                    <label asp-for="Value">Amount:</label>
+                        <input asp-for="Value" readonly="readonly" />
+                    <label asp-for="Date">Date:</label>
+                        <input type="date" asp-for="Date" value="@Model.Date.ToString("yyyy-MM-dd")" readonly="readonly"/>
+                    <label asp-for="Category">Category:</label>
+                        <input asp-for="Category.Name" readonly="readonly" />
+                </div>
+                <button type="submit" id="add-account" class="text-action button button-action">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

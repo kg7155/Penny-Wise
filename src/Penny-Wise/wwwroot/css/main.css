@@ -461,18 +461,6 @@ html, body {
     cursor: pointer;
 }
 
-#canvas-line-chart {
-    position: absolute;
-    top: 330px;
-    left: 0px;
-}
-
-#canvas-bar-graph {
-    position: absolute;
-    top: 200px;
-    left: 0px;
-}
-
 .container-video {
     top: 25px;
     left: 270px;
@@ -487,7 +475,7 @@ html, body {
 }
 
 .table {
-    margin: 70px 0px 0px 15px;
+    margin: 70px 0px 40px 15px;
 }
 
 .table a {
@@ -499,7 +487,7 @@ html, body {
 }
 
 th, td {
-    padding: 15px;
+    padding: 5px 70px 5px 10px;
     text-align: left;
 }
 
@@ -524,4 +512,5 @@ th, td {
     font-size: 12px;
     display: block;
     margin-bottom: 15px;
+    border: none;
 }

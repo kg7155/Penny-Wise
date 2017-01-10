@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<Penny_Wise.Models.Transaction>
+
+@{
     ViewData["Title"] = "Expenses";
 }
+
 
 <div class="main">
     <div class="container">
@@ -9,11 +12,46 @@
             <option value="transaction-account">Transaction account</option>
             <option value="cash">Cash</option>
         </select>
+        <a asp-action="AddNew" class="button button-action">Add expense</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Value</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @item.Date.Date.ToString("MM-dd-yyyy")
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>      
         <canvas id="canvas-bar-graph" class="expenses"></canvas>
     </div>
 </div>
 
 @section Scripts {
     <!-- Scripts -->
-    <script type="text/javascript" src="assets/js/bar-graph.js"></script>
+    <script type="text/javascript" src="~/js/bar-graph.js"></script>
 }

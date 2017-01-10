@@ -1,41 +1,67 @@
-﻿@{
+﻿@model IEnumerable<Penny_Wise.Models.Transaction>
+@using System.Globalization
+@using System.Threading.Tasks
+@{
     ViewData["Title"] = "Overview";
 }
 
 <div class="main">
     <div class="container">
-        <a class="button button-action" id="button-add" href="#add">+</a>
-        <a class="button" id="current-month">November 2016</a>
-        <select class="select-account">
-            <option value="transaction-account">Transaction account</option>
-            <option value="cash">Cash</option>
+        <select name="overview-select-date">
+            @foreach (var date in ViewBag.Dates)
+            {
+                <option value="@date">@date.ToString("MMMM yyyy", CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture)</option>
+            }
         </select>
-        <div id="add" class="overlay">
-            <div id="add-expense-income-form" class="form">
-                <ul>
-                    <li>
-                        <input type="radio" name="addnew" value="expense" id="radio-expense" checked>
-                        <label for="radio-expense">Add expense</label>
-                    </li>
-                    <li>
-                        <input type="radio" name="addnew" value="income" id="radio-income">
-                        <label for="radio-income">Add income</label>
-                    </li>
-                </ul>
-                <input type="number" name="quantity" placeholder="0.0 (€)">
-                <input type="text" name="category" placeholder="category">
-                <input type="date" name="date">
-                <div id="icon-container">
-                    <div class="icon-cancel"></div>
-                    <div class="icon-confirm"></div>
-                </div>
-            </div>
-        </div>
+        <select name="overview-select-account">
+            @foreach (var acc in ViewBag.Accounts)
+            {
+                <option value="@acc.ID">@acc.Type</option>
+            }
+        </select>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Transaction</th>
+                    <th>Value (EUR)</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (item.Type)
+                            {
+                                <p>Income</p>
+                            }
+                            else
+                            {
+                                <p>Expense</p>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @item.Date.Date.ToString("MM-dd-yyyy")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
         <canvas id="canvas-line-chart" class="overview"></canvas>
     </div>
 </div>
 
 @section Scripts {
 <!-- Scripts -->
-    <script type="text/javascript" src="assets/js/line-chart.js"></script>
+    <script type="text/javascript" src="~/js/line-chart.js"></script>
 }

@@ -1,0 +1,43 @@
+@model Penny_Wise.Models.Transaction
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="main">
+    <div class="container">
+        <form asp-action="Edit">
+            <div class="add-form">
+                <h4>Edit income (first add category please):</h4>
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="data">
+                    <label asp-for="Account">Account: </label><br />
+                        <select asp-for="Account" class="select-account" id="goals-select-account" name="incomes-select-account">
+                            @foreach (var acc in ViewBag.Accounts)
+                            {
+                                <option value="@acc.ID">@acc.Type</option>
+                            }
+                        </select>
+                    <label asp-for="Value">Amount:</label>
+                        <input asp-for="Value" />
+                    <label asp-for="Date">Date:</label>
+                        <input type="date" asp-for="Date" value="@Model.Date.ToString("yyyy-MM-dd")"/>
+                    <label asp-for="Category">Category: </label>
+                        <select asp-for="Category" name="incomes-select-category">
+                            @foreach (var cat in ViewBag.Categories)
+                            {
+                                <option value="@cat.ID">@cat.Name</option>
+                            }
+                        </select>
+                    <a asp-action="AddNewCategory" class="small-button">Add category</a>
+                </div>
+                <button type="submit" id="add-account" class="text-action button button-action">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
