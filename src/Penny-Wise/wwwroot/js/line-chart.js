@@ -1,4 +1,4 @@
-function drawChart(elementIdName, data, cols, step) {
+function drawLineChart(elementIdName, data, cols, step) {
 
     var canvas = document.getElementById(elementIdName);
     canvas.width = 800;

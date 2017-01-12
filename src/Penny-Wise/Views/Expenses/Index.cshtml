@@ -4,54 +4,69 @@
     ViewData["Title"] = "Expenses";
 }
 
-
 <div class="main">
     <div class="container">
-        <a class="button" id="current-month">November 2016</a>
-        <select id="select-account">
-            <option value="transaction-account">Transaction account</option>
-            <option value="cash">Cash</option>
-        </select>
+        <a class="button" id="current-month"></a>
         <a asp-action="AddNew" class="button button-action">Add expense</a>
         <table class="table">
             <thead>
-                <tr>
-                    <th>Account</th>
-                    <th>Value</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Account</th>
+                <th>Value (EUR)</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Account.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Value)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.Name)
-                        </td>
-                        <td>
-                            @item.Date.Date.ToString("MM-dd-yyyy")
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                        </td>
-                    </tr>
-                }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @item.Date.Date.ToString("MM-dd-yyyy")
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
             </tbody>
-        </table>      
-        <canvas id="canvas-bar-graph" class="expenses"></canvas>
+        </table>
+        <select id="expenses-select-account" name="expenses-select-account">
+            @foreach (var acc in ViewBag.Accounts)
+            {
+                <option value="@acc.ID">@acc.Type</option>
+            }
+        </select><br/><br/>
+        <canvas id="canvas-bar-graph"></canvas>
     </div>
 </div>
 
 @section Scripts {
-    <!-- Scripts -->
     <script type="text/javascript" src="~/js/bar-graph.js"></script>
+    <script type="text/javascript">
+        function drawGraph(accName) {
+            $.get("@Url.Action("Graph")", { accountId: accName },
+                function (data) {
+                    drawBarGraph("canvas-bar-graph", JSON.parse(data));
+                });
+        }
+
+        //$("#expenses-select-account").change(function () {
+        //        drawGraph(this.value);
+        //    });
+
+        drawGraph($("#expenses-select-account").val());
+        setCurrentDate();
+    </script>
 }

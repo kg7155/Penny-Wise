@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Penny_Wise.Data;
 using Penny_Wise.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Penny_Wise.Controllers
 {
@@ -21,6 +22,9 @@ namespace Penny_Wise.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
             var items = await _context.Transaction.Include("Account").Include("Category").Where(t => !t.Type).ToListAsync();
             return View(items);
         }
@@ -42,6 +46,14 @@ namespace Penny_Wise.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddNew([Bind("ID,Type,Value,Category,Date")] Transaction expense)
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            //var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+
             if (ModelState.IsValid)
             {
                 expense.Type = false;
@@ -108,11 +120,17 @@ namespace Penny_Wise.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Type,Value,Category,Date")] Transaction expense)
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
             if (id != expense.ID)
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
@@ -121,11 +139,11 @@ namespace Penny_Wise.Controllers
 
                     expense.Type = false;
 
-                    int accountId = Int32.Parse(Request.Form["incomes-select-account"]);
+                    int accountId = Int32.Parse(Request.Form["expenses-select-account"]);
                     var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
                     expense.Account = account;
 
-                    int categoryId = int.Parse(Request.Form["incomes-select-category"]);
+                    int categoryId = int.Parse(Request.Form["expenses-select-category"]);
                     var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                     expense.Category = category;
 
@@ -133,7 +151,7 @@ namespace Penny_Wise.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IncomeExists(expense.ID))
+                    if (!ExpenseExists(expense.ID))
                     {
                         return NotFound();
                     }
@@ -175,7 +193,27 @@ namespace Penny_Wise.Controllers
             return RedirectToAction("Index");
         }
 
-        private bool IncomeExists(int id)
+        // GET: Expenses/Graph
+        [HttpGet]
+        public string Graph(int accountId)
+        {
+            int numDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            List<double> data = new List<double>();
+
+            for (var i = 1; i <= numDays; i++)
+            {
+                double value = 0;
+                var expenses = _context.Transaction.Where(o => o.Type == false && o.Account.ID == accountId && o.Date.Year == DateTime.Now.Year && o.Date.Month == DateTime.Now.Month && o.Date.Day == i);
+                foreach (var expense in expenses)
+                {
+                    value += expense.Value;
+                }
+                data.Add(value);
+            }
+            return JsonConvert.SerializeObject(data);
+        }
+
+        private bool ExpenseExists(int id)
         {
             return _context.Transaction.Any(e => e.ID == id);
         }

@@ -13,18 +13,18 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="data">
                     <label asp-for="Account">Account: </label><br />
-                        <select asp-for="Account" class="select-account" id="goals-select-account" name="incomes-select-account">
+                        <select asp-for="Account" id="expenses-select-account" name="expenses-select-account">
                             @foreach (var acc in ViewBag.Accounts)
                             {
                                 <option value="@acc.ID">@acc.Type</option>
                             }
                         </select>
                     <label asp-for="Value">Amount:</label>
-                        <input asp-for="Value" />
+                        <input type="text" name="Value" value="@Model.Value" />
                     <label asp-for="Date">Date:</label>
                         <input type="date" asp-for="Date" value="@Model.Date.ToString("yyyy-MM-dd")"/>
                     <label asp-for="Category">Category: </label>
-                        <select asp-for="Category" name="incomes-select-category">
+                        <select asp-for="Category" name="expenses-select-category">
                             @foreach (var cat in ViewBag.Categories)
                             {
                                 <option value="@cat.ID">@cat.Name</option>
