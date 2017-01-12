@@ -4,7 +4,6 @@
     ViewData["Title"] = "Incomes";
 }
 
-
 <div class="main">
     <div class="container">
         <a class="button" id="current-month"></a>
@@ -43,20 +42,31 @@
             }
             </tbody>
         </table>
-        <div>
-            <select class="select-account" id="goals-select-account" name="incomes-select-account">
-                @foreach (var acc in ViewBag.Accounts)
-                {
-                    <option value="@acc.ID">@acc.Type</option>
-                }
-            </select>
-            <button class="small-button">Generate graph</button>
-            <canvas id="canvas-bar-graph" class="expenses"></canvas>
-        </div>
+        <select id="incomes-select-account" name="incomes-select-account">
+            @foreach (var acc in ViewBag.Accounts)
+            {
+                <option value="@acc.ID">@acc.Type</option>
+            }
+        </select><br/><br/>
+            <canvas id="canvas-bar-graph"></canvas>
     </div>
 </div>
 
 @section Scripts {
-    <!-- Scripts -->
     <script type="text/javascript" src="~/js/bar-graph.js"></script>
+    <script type="text/javascript">
+        function drawGraph(accName) {
+            $.get("@Url.Action("Graph")", { accountId: accName },
+                function (data) {
+                    drawBarGraph("canvas-bar-graph", JSON.parse(data));
+                });
+        }
+
+        $("#incomes-select-account").change(function () {
+                drawGraph(this.value);
+            });
+
+        drawGraph($("#incomes-select-account").val());
+        setCurrentDate();
+    </script>
 }

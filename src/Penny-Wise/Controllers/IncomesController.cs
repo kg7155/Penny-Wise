@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Penny_Wise.Data;
 using Penny_Wise.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Penny_Wise.Controllers
 {
@@ -45,6 +46,14 @@ namespace Penny_Wise.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddNew([Bind("ID,Type,Value,Category,Date")] Transaction income)
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+
             if (ModelState.IsValid)
             {
                 income.Type = true;
@@ -111,11 +120,17 @@ namespace Penny_Wise.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Type,Value,Category,Date")] Transaction income)
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
             if (id != income.ID)
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
@@ -166,7 +181,7 @@ namespace Penny_Wise.Controllers
 
             return View(income);
         }
-
+        
         // POST: Incomes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -176,6 +191,26 @@ namespace Penny_Wise.Controllers
             _context.Transaction.Remove(income);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        // GET: Incomes/Graph
+        [HttpGet]
+        public string Graph(int accountId)
+        {
+            int numDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            List<double> data = new List<double>();
+
+            for (var i = 1; i <= numDays; i++)
+            {
+                double value = 0;
+                var incomes = _context.Transaction.Where(o => o.Type && o.Account.ID == accountId && o.Date.Year == DateTime.Now.Year && o.Date.Month == DateTime.Now.Month && o.Date.Day == i);
+                foreach (var income in incomes)
+                {
+                    value += income.Value;
+                }
+                data.Add(value);
+            }
+            return JsonConvert.SerializeObject(data);
         }
 
         private bool IncomeExists(int id)

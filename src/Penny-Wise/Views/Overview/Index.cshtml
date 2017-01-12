@@ -62,6 +62,12 @@
 </div>
 
 @section Scripts {
-<!-- Scripts -->
     <script type="text/javascript" src="~/js/line-chart.js"></script>
+    <script type="text/javascript">
+        function drawGraph(data) {
+            drawChart("canvas-line-chart", data, 31, 20);
+        }
+
+        
+    </script>
 }

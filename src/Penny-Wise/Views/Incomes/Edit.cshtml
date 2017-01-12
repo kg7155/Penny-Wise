@@ -20,7 +20,7 @@
                             }
                         </select>
                     <label asp-for="Value">Amount:</label>
-                        <input asp-for="Value" />
+                        <input type="text" name="Value" value="@Model.Value" />
                     <label asp-for="Date">Date:</label>
                         <input type="date" asp-for="Date" value="@Model.Date.ToString("yyyy-MM-dd")"/>
                     <label asp-for="Category">Category: </label>
