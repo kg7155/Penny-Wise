@@ -48,7 +48,7 @@
                 }
             </tbody>
         </table>
-        <select name="overview-select-date">
+        <select id="overview-select-date" name="overview-select-date">
             @foreach (var date in ViewBag.Dates)
             {
                 <option value="@date">@date.ToString("MMMM yyyy", CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture)</option>
@@ -87,20 +87,24 @@
             return $("#overview-select-date").val();
         }
 
-        // TODO: usposobit breakpointe
-        var d = getSelectedDate();
-        //$("#overview-select-account").change(function () {
-        //    var d = getSelectedDate();
-        //    //int year = d.getYear();
-        //    //int month = d.getMonth();
-        //    drawChart(this.value, month, year);
-        //});
+        function getMonthYear(dateString) {
+            var dateParts = dateString.split(".");
+            var month = dateParts[1];
+            var year = dateParts[2].substring(0, 4);
+            return [month, year];
+        }
 
-        //$("#overview-select-date").change(function () {
-        //    drawChart(this.value);
-        //});
+        $("#overview-select-account").change(function () {
+            var monthYear = getMonthYear(getSelectedDate());
+            drawChart(this.value, monthYear[0], monthYear[1]);
+        });
 
-        //drawChart($("#overview-select-account").val());
+        $("#overview-select-date").change(function () {
+            var monthYear = getMonthYear(getSelectedDate());
+            drawChart(getSelectedAccount, monthYear[0], monthYear[1]);
+        });
 
+        var monthYear = getMonthYear(getSelectedDate());
+        drawChart(getSelectedAccount, monthYear[0], monthYear[1]);
     </script>
 }

@@ -42,7 +42,7 @@
             }
             </tbody>
         </table>
-        <select id="expenses-select-account" name="expenses-select-account">
+        <select id="expenses-select-account" class="expenses-select-account" name="expenses-select-account">
             @foreach (var acc in ViewBag.Accounts)
             {
                 <option value="@acc.ID">@acc.Type</option>
@@ -62,9 +62,9 @@
                 });
         }
 
-        //$("#expenses-select-account").change(function () {
-        //        drawGraph(this.value);
-        //    });
+        $("#expenses-select-account").change(function () {
+                drawGraph(this.value);
+            });
 
         drawGraph($("#expenses-select-account").val());
         setCurrentDate();

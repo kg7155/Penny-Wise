@@ -10,7 +10,7 @@ function drawLineChart(elementIdName, data) {
     var maxValue = Math.max.apply(Math, data);
     var minValue = Math.min.apply(Math, data);
 
-    var step = (maxValue - minValue) / 10;
+    var step = Math.max(1, (maxValue - minValue) / 10);
     var d = new Date();
     var cols = new Date(d.getYear(), d.getMonth(), 0).getDate();
     var rows = (maxValue - minValue) / step + 1;
@@ -65,6 +65,5 @@ function drawLineChart(elementIdName, data) {
         context.moveTo(i * columnWidth, margin * 2.5 + c * columnHeight - (columnHeight / step) * (data[i - 1] - j));
         context.lineTo((i + 1) * columnWidth, margin * 2.5 + c * columnHeight - (columnHeight / step) * (data[i] - j));
     }
-
     context.stroke();
 }

@@ -10,7 +10,7 @@ function drawBarGraph(elementIdName, data) {
 
     var d = new Date();
     var cols = new Date(d.getYear(), d.getMonth(), 0).getDate();
-    var step = (maxValue - minValue) / 10;
+    var step = Math.max((maxValue - minValue) / 10, 1);
     var rows = (maxValue - minValue) / step + 1;
     var margin = 10;
     var columnWidth = (canvas.width - 2 * margin) / cols - 1;

@@ -27,6 +27,11 @@ namespace Penny_Wise.Controllers
         public async Task<IActionResult> Index()
         {
             var items = await _context.Goals.Include("Account").ToListAsync();
+
+            var list = new List<double>(items.Count);
+            list.AddRange(items.Select(goal => AmountLeft(goal.Account.ID, goal.Amount)));
+
+            ViewBag.AmountsLeft = list;
             return View(items);
         }
 
@@ -164,8 +169,8 @@ namespace Penny_Wise.Controllers
 
             if (amountLeft < 0.0)
                 return 0.0;
-            else
-                return amount - balance;
+
+            return amount - balance;
         }
 
         public IActionResult Error()

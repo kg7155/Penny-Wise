@@ -18,9 +18,10 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>  
-            @foreach (var item in Model)
+        <tbody> 
+            @for (int i = 0; i < Model.Count(); i++)
             {
+                var item = Model.ElementAt(i);
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Account.Type)
@@ -32,8 +33,7 @@
                         @item.DateTo.Date.ToString("MM-dd-yyyy")
                     </td>
                     <td>
-                        @*TODO: poklici akcijo AmountLeft(item.Account.Id, item.Amount)*@
-                        <p>Test</p>
+                        @((ViewBag.AmountsLeft as List<double>)[i])
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
