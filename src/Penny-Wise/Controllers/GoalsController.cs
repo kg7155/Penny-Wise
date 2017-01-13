@@ -26,7 +26,7 @@ namespace Penny_Wise.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var items = await _context.Goals.Include("Account").ToListAsync();
+            var items = await _context.Goals.Include(o => o.Account).ToListAsync();
 
             var list = new List<double>(items.Count);
             list.AddRange(items.Select(goal => AmountLeft(goal.Account.ID, goal.Amount)));

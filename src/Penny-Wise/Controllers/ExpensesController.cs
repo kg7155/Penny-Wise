@@ -25,7 +25,7 @@ namespace Penny_Wise.Controllers
             List<UserAccount> accounts = _context.Accounts.ToList();
             ViewBag.Accounts = accounts;
 
-            var items = await _context.Transaction.Include("Account").Include("Category").Where(t => !t.Type).ToListAsync();
+            var items = await _context.Transaction.Include(o => o.Account).Include(o => o.Category).Where(t => !t.Type).ToListAsync();
             return View(items);
         }
 
@@ -173,7 +173,7 @@ namespace Penny_Wise.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Transaction.Include("Account").Include("Category").SingleOrDefaultAsync(m => m.ID == id);
+            var expense = await _context.Transaction.Include(o => o.Account).Include(o => o.Category).SingleOrDefaultAsync(m => m.ID == id);
             if (expense == null)
             {
                 return NotFound();

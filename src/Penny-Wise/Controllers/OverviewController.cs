@@ -37,7 +37,7 @@ namespace Penny_Wise.Controllers
             }
             ViewBag.Dates = distinctDates;
             
-            var items = await _context.Transaction.Include("Account").Include("Category").ToListAsync();
+            var items = await _context.Transaction.Include(o => o.Account).Include(o => o.Category).ToListAsync();
             return View(items);
         }
 
