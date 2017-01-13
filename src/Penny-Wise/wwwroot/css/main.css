@@ -335,18 +335,6 @@ html, body {
     color: #312450;
 }
 
-.overlay {
-    transition: opacity 500ms;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.overlay:target {
-    visibility: visible;
-    opacity: 1;
-    position: fixed;
-}
-
 .form ul {
     list-style: none;
 }
@@ -371,12 +359,6 @@ html, body {
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: none;
-}
-
-#add-expense-income-form {
-    margin-top: 125px;
-    width: 210px;
-    transition: all 0.3s ease-out;
 }
 
 .form ul {

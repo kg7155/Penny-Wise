@@ -1,8 +1,4 @@
-﻿@using System.Collections.Generic
-@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Http.Authentication
-
-@{
+﻿@{
     Layout = null;
     ViewData["Title"] = "Overview";
 }
@@ -36,7 +32,7 @@
                     <menulink class="incomes" controller-name="Incomes" action-name="Index" menu-text="Incomes"></menulink>
                     <menulink class="accounts" controller-name="Accounts" action-name="Index" menu-text="Accounts"></menulink>
                     <menulink class="goals" controller-name="Goals" action-name="Index" menu-text="Goals"></menulink>
-                    <menulink class="reports" controller-name="Reports" action-name="Index" menu-text="Reports"></menulink>
+                    @*<menulink class="reports" controller-name="Reports" action-name="Index" menu-text="Reports"></menulink>*@
                     <menulink class="profile" controller-name="Profile" action-name="Index" menu-text="Profile"></menulink>
                     <li class="logout"><a href="~/Account/LogOff">Log out</a></li>
                 </ul>

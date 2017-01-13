@@ -13,7 +13,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="data">
                     <label asp-for="Account">Account: </label><br />
-                        <select asp-for="Account" class="select-account" id="goals-select-account" name="incomes-select-account">
+                        <select asp-for="Account" name="incomes-select-account">
                             @foreach (var acc in ViewBag.Accounts)
                             {
                                 <option value="@acc.ID">@acc.Type</option>

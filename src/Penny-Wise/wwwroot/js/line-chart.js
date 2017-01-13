@@ -1,30 +1,18 @@
-function drawLineChart(elementIdName, data, cols, step) {
+function drawLineChart(elementIdName, data) {
 
     var canvas = document.getElementById(elementIdName);
     canvas.width = 800;
     canvas.height = 400;
     var context = canvas.getContext("2d");
 
-    //var data, cols, step;
-    //if (document.getElementById("canvas-line-chart").className == "reports") {
-    //    var months = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    //    data = [140, -30, 50, 0, 20, 46, 63, 90, 100, 150, 11];
-    //    cols = 12;
-    //    step = 50;
-    //} else {
-    //    data = [
-    //        5, 3, 0, -10, 15, 46, 73, 0, 0, 10, -5, -20, -40, 0, 43, 22, 45, 0, 11.2, -100, 80, 0, 0, 0, 0, 15, 22, 41,
-    //        0, 0, -11
-    //    ]
-    //    cols = 31;
-    //    step = 20;
-    //}
-
     var months = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     var maxValue = Math.max.apply(Math, data);
     var minValue = Math.min.apply(Math, data);
 
+    var step = (maxValue - minValue) / 10;
+    var d = new Date();
+    var cols = new Date(d.getYear(), d.getMonth(), 0).getDate();
     var rows = (maxValue - minValue) / step + 1;
     var margin = 10;
     var columnWidth = (canvas.width - 2 * margin) / cols;

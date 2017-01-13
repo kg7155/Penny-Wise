@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Penny_Wise.Data;
 using Penny_Wise.Models;
 
@@ -35,19 +36,45 @@ namespace Penny_Wise.Controllers
                 }
             }
             ViewBag.Dates = distinctDates;
-
-            //int accountId = int.Parse(Request.Form["overview-select-account"]);
-            //var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
-
-            //var items = await _context.Transaction.Include("Account").Include("Category").Where(m => m.Account == account).ToListAsync();
-
-            //var items = await _context.Transaction.Include("Account").Include("Category").Where(m => m.Account == account).ToListAsync();
-            //return View(items);
-
+            
             var items = await _context.Transaction.Include("Account").Include("Category").ToListAsync();
             return View(items);
         }
-        
+
+        // GET: Overview/Chart
+        [HttpGet]
+        public string Chart(int accountId, int month, int year)
+        {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            int numDays = DateTime.DaysInMonth(year, month);
+            List<double> data = new List<double>();
+
+            for (var i = 1; i <= numDays; i++)
+            {
+                double valueIncomes = 0;
+                var incomes = _context.Transaction.Where(o => o.Type && o.Account.ID == accountId && o.Date.Year == year && o.Date.Month == month && o.Date.Day == i);
+                foreach (var income in incomes)
+                {
+                    valueIncomes += income.Value;
+                }
+
+                double valueExpenses = 0;
+                var expenses = _context.Transaction.Where(o => !o.Type && o.Account.ID == accountId && o.Date.Year == year && o.Date.Month == month && o.Date.Day == i);
+                foreach (var expense in expenses)
+                {
+                    valueExpenses += expense.Value;
+                }
+                
+                data.Add(valueIncomes - valueExpenses);
+            }
+            return JsonConvert.SerializeObject(data);
+        }
+
         public IActionResult Error()
         {
             return View();

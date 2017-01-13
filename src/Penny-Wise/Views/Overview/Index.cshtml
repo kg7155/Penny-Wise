@@ -7,32 +7,24 @@
 
 <div class="main">
     <div class="container">
-        <select name="overview-select-date">
-            @foreach (var date in ViewBag.Dates)
-            {
-                <option value="@date">@date.ToString("MMMM yyyy", CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture)</option>
-            }
-        </select>
-        <select name="overview-select-account">
-            @foreach (var acc in ViewBag.Accounts)
-            {
-                <option value="@acc.ID">@acc.Type</option>
-            }
-        </select>
         <table class="table">
             <thead>
-                <tr>
-                    <th>Transaction</th>
-                    <th>Value (EUR)</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Account</th>
+                <th>Transaction</th>
+                <th>Value (EUR)</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account.Type)
+                        </td>
                         <td>
                             @if (item.Type)
                             {
@@ -56,18 +48,59 @@
                 }
             </tbody>
         </table>
-
-        <canvas id="canvas-line-chart" class="overview"></canvas>
+        <select name="overview-select-date">
+            @foreach (var date in ViewBag.Dates)
+            {
+                <option value="@date">@date.ToString("MMMM yyyy", CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture)</option>
+            }
+        </select>
+        <select id="overview-select-account" name="overview-select-account">
+            @foreach (var acc in ViewBag.Accounts)
+            {
+                <option value="@acc.ID">@acc.Type</option>
+            }
+        </select><br /><br/>
+        <canvas id="canvas-line-chart"></canvas>
     </div>
 </div>
 
 @section Scripts {
     <script type="text/javascript" src="~/js/line-chart.js"></script>
     <script type="text/javascript">
-        function drawGraph(data) {
-            drawChart("canvas-line-chart", data, 31, 20);
+        function drawChart(accName, monthNum, yearNum) {
+            $.get("@Url.Action("Chart")",
+                {
+                    accountId: accName,
+                    month: monthNum,
+                    year: yearNum
+                },
+                function(data) {
+                    drawLineChart("canvas-line-chart", JSON.parse(data));
+                });
         }
 
-        
+        function getSelectedAccount() {
+            return $("#overview-select-account").val();
+        }
+
+        function getSelectedDate() {
+            return $("#overview-select-date").val();
+        }
+
+        // TODO: usposobit breakpointe
+        var d = getSelectedDate();
+        //$("#overview-select-account").change(function () {
+        //    var d = getSelectedDate();
+        //    //int year = d.getYear();
+        //    //int month = d.getMonth();
+        //    drawChart(this.value, month, year);
+        //});
+
+        //$("#overview-select-date").change(function () {
+        //    drawChart(this.value);
+        //});
+
+        //drawChart($("#overview-select-account").val());
+
     </script>
 }
