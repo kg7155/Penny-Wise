@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Penny_Wise.Models.Goal>
+﻿@model IEnumerable<Goal>
 
 @{
     ViewData["Title"] = "Goals";
@@ -14,6 +14,7 @@
                 <th>Account</th>
                 <th>Amount to save (EUR)</th>
                 <th>Till</th>
+                <th>Amount left (EUR)</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,6 +30,10 @@
                     </td>
                     <td>
                         @item.DateTo.Date.ToString("MM-dd-yyyy")
+                    </td>
+                    <td>
+                        @*TODO: poklici akcijo AmountLeft(item.Account.Id, item.Amount)*@
+                        <p>Test</p>
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>

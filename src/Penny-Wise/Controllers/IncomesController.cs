@@ -61,7 +61,7 @@ namespace Penny_Wise.Controllers
                 int accountId = int.Parse(Request.Form["incomes-select-account"]);
                 var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
                 income.Account = account;
-
+                
                 int categoryId = int.Parse(Request.Form["incomes-select-category"]);
                 var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                 income.Category = category;
