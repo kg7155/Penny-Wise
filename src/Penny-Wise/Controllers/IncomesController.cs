@@ -222,9 +222,9 @@ namespace Penny_Wise.Controllers
             return _context.Transaction.Any(e => e.ID == id);
         }
 
-        private void RecalculateAccountBalance(int accountId)
+        private async void RecalculateAccountBalance(int accountId)
         {
-            var account = _context.Accounts.First(a => a.ID == accountId);
+            var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
             double balance = account.Balance;
             
             var incomes = _context.Transaction.Where(o => o.Account.ID == accountId && o.Type);
@@ -240,7 +240,7 @@ namespace Penny_Wise.Controllers
             }
 
             account.Balance = balance;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public IActionResult Error()
