@@ -67,8 +67,9 @@ namespace Penny_Wise.Controllers
                 income.Category = category;
 
                 _context.Add(income);
-                RecalculateAccountBalance(accountId);
+
                 await _context.SaveChangesAsync();
+                RecalculateAccountBalance(accountId);
                 return RedirectToAction("Index");
             }
             return View(income);
@@ -147,9 +148,9 @@ namespace Penny_Wise.Controllers
                     int categoryId = int.Parse(Request.Form["incomes-select-category"]);
                     var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                     income.Category = category;
-
-                    RecalculateAccountBalance(accountId);
+                    
                     await _context.SaveChangesAsync();
+                    RecalculateAccountBalance(accountId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -190,9 +191,9 @@ namespace Penny_Wise.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var income = await _context.Transaction.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Transaction.Remove(income);
-
             RecalculateAccountBalance(income.Account.ID);
+            _context.Transaction.Remove(income);
+            
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

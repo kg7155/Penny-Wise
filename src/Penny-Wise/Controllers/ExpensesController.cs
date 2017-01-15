@@ -68,6 +68,7 @@ namespace Penny_Wise.Controllers
 
                 _context.Add(expense);
                 await _context.SaveChangesAsync();
+                RecalculateAccountBalance(accountId);
                 return RedirectToAction("Index");
             }
             return View(expense);
@@ -146,8 +147,9 @@ namespace Penny_Wise.Controllers
                     int categoryId = int.Parse(Request.Form["expenses-select-category"]);
                     var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                     expense.Category = category;
-
+                    
                     await _context.SaveChangesAsync();
+                    RecalculateAccountBalance(accountId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -188,6 +190,7 @@ namespace Penny_Wise.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var expense = await _context.Transaction.SingleOrDefaultAsync(m => m.ID == id);
+            RecalculateAccountBalance(expense.Account.ID);
             _context.Transaction.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -216,6 +219,27 @@ namespace Penny_Wise.Controllers
         private bool ExpenseExists(int id)
         {
             return _context.Transaction.Any(e => e.ID == id);
+        }
+
+        private async void RecalculateAccountBalance(int accountId)
+        {
+            var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
+            double balance = account.Balance;
+
+            var incomes = _context.Transaction.Where(o => o.Account.ID == accountId && o.Type);
+            foreach (var income in incomes)
+            {
+                balance += income.Value;
+            }
+
+            var expenses = _context.Transaction.Where(o => o.Account.ID == accountId && !o.Type);
+            foreach (var expense in expenses)
+            {
+                balance -= expense.Value;
+            }
+
+            account.Balance = balance;
+            await _context.SaveChangesAsync();
         }
 
         public IActionResult Error()
