@@ -67,6 +67,7 @@ namespace Penny_Wise.Controllers
                 income.Category = category;
 
                 _context.Add(income);
+                RecalculateAccountBalance(accountId);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -147,6 +148,7 @@ namespace Penny_Wise.Controllers
                     var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                     income.Category = category;
 
+                    RecalculateAccountBalance(accountId);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -189,6 +191,8 @@ namespace Penny_Wise.Controllers
         {
             var income = await _context.Transaction.SingleOrDefaultAsync(m => m.ID == id);
             _context.Transaction.Remove(income);
+
+            RecalculateAccountBalance(income.Account.ID);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -216,6 +220,27 @@ namespace Penny_Wise.Controllers
         private bool IncomeExists(int id)
         {
             return _context.Transaction.Any(e => e.ID == id);
+        }
+
+        private void RecalculateAccountBalance(int accountId)
+        {
+            var account = _context.Accounts.First(a => a.ID == accountId);
+            double balance = account.Balance;
+            
+            var incomes = _context.Transaction.Where(o => o.Account.ID == accountId && o.Type);
+            foreach (var income in incomes)
+            {
+                balance += income.Value;
+            }
+
+            var expenses = _context.Transaction.Where(o => o.Account.ID == accountId && !o.Type);
+            foreach (var expense in expenses)
+            {
+                balance -= expense.Value;
+            }
+
+            account.Balance = balance;
+            _context.SaveChangesAsync();
         }
 
         public IActionResult Error()
