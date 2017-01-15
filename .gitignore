@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/src/Penny-Wise/Properties/PublishProfiles/publish-module.psm1
+/src/Penny-Wise/Properties/PublishProfiles/penny-wise - Web Deploy.pubxml
+*.ps1
