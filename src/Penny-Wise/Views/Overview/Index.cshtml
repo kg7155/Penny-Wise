@@ -88,7 +88,7 @@
         }
 
         function getMonthYear(dateString) {
-            var dateParts = dateString.split(".");
+            var dateParts = dateString.split(/[./]/);
             var month = dateParts[1];
             var year = dateParts[2].substring(0, 4);
             return [month, year];
