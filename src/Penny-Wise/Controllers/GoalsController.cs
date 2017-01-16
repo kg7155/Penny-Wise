@@ -151,26 +151,13 @@ namespace Penny_Wise.Controllers
 
         public double AmountLeft(int accountId, double amount)
         {
-            double balance = 0;
-
-            var incomes = _context.Transaction.Where(o => o.Account.ID == accountId && o.Type);
-            foreach (var income in incomes)
-            {
-                balance += income.Value;
-            }
-
-            var expenses = _context.Transaction.Where(o => o.Account.ID == accountId && !o.Type);
-            foreach (var expense in expenses)
-            {
-                balance -= expense.Value;
-            }
-
+            double balance = _context.Accounts.First(d => d.ID == accountId).Balance;
             double amountLeft = amount - balance;
 
             if (amountLeft < 0.0)
                 return 0.0;
 
-            return amount - balance;
+            return amountLeft;
         }
 
         public IActionResult Error()
