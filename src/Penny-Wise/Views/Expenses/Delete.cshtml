@@ -6,7 +6,7 @@
 
 <div class="main">
     <div class="container">
-        <form asp-action="Delete">
+        <form asp-action="Delete" novalidate>
             <div class="add-form">
                 <h4>Are you sure you want to delete this expense?</h4>
                 <br />
@@ -15,7 +15,7 @@
                     <label asp-for="Account">Account:</label>
                         <input asp-for="Account.Type" readonly="readonly" />
                     <label asp-for="Value">Amount:</label>
-                        <input asp-for="Value" readonly="readonly" />
+                        <input type="text" name="Value" value="@Model.Value" readonly="readonly" />
                     <label asp-for="Date">Date:</label>
                         <input type="date" asp-for="Date" value="@Model.Date.ToString("yyyy-MM-dd")" readonly="readonly"/>
                     <label asp-for="Category">Category:</label>

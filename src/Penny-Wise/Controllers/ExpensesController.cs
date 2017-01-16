@@ -67,8 +67,9 @@ namespace Penny_Wise.Controllers
                 expense.Category = category;
 
                 _context.Add(expense);
+                expense.Account.Balance -= expense.Value;
                 await _context.SaveChangesAsync();
-                RecalculateAccountBalance(accountId);
+
                 return RedirectToAction("Index");
             }
             return View(expense);
@@ -147,9 +148,9 @@ namespace Penny_Wise.Controllers
                     int categoryId = int.Parse(Request.Form["expenses-select-category"]);
                     var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                     expense.Category = category;
-                    
-                    await _context.SaveChangesAsync();
+
                     RecalculateAccountBalance(accountId);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -189,8 +190,11 @@ namespace Penny_Wise.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
             var expense = await _context.Transaction.SingleOrDefaultAsync(m => m.ID == id);
-            RecalculateAccountBalance(expense.Account.ID);
+            expense.Account.Balance += expense.Value;
             _context.Transaction.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

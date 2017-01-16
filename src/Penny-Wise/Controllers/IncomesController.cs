@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using Penny_Wise.Data;
 using Penny_Wise.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Remotion.Linq.Clauses;
 
 namespace Penny_Wise.Controllers
 {
@@ -68,8 +70,8 @@ namespace Penny_Wise.Controllers
 
                 _context.Add(income);
 
+                income.Account.Balance += income.Value;
                 await _context.SaveChangesAsync();
-                RecalculateAccountBalance(accountId);
                 return RedirectToAction("Index");
             }
             return View(income);
@@ -137,20 +139,23 @@ namespace Penny_Wise.Controllers
             {
                 try
                 {
-                    _context.Update(income);
-
+                    //var oldIncome = _context.Transaction.First(t => t.ID == income.ID);
+                    //var oldValue = _context.Entry(income).Property("Value").OriginalValue;
+                    
                     income.Type = true;
+                    _context.Update(income);
 
                     int accountId = Int32.Parse(Request.Form["incomes-select-account"]);
                     var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
                     income.Account = account;
+                    //income.Account.Balance -= oldValue - income.Value;
 
                     int categoryId = int.Parse(Request.Form["incomes-select-category"]);
                     var category = await _context.Categories.SingleOrDefaultAsync(a => a.ID == categoryId);
                     income.Category = category;
                     
                     await _context.SaveChangesAsync();
-                    RecalculateAccountBalance(accountId);
+                    await RecalculateAccountBalance(accountId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -169,6 +174,7 @@ namespace Penny_Wise.Controllers
         }
 
         // GET: Incomes/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -184,16 +190,23 @@ namespace Penny_Wise.Controllers
 
             return View(income);
         }
-        
+
         // POST: Incomes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            List<UserAccount> accounts = _context.Accounts.ToList();
+            ViewBag.Accounts = accounts;
+
+            List<Category> categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+
             var income = await _context.Transaction.SingleOrDefaultAsync(m => m.ID == id);
-            RecalculateAccountBalance(income.Account.ID);
+            income.Account.Balance -= income.Value;
+
             _context.Transaction.Remove(income);
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -223,7 +236,7 @@ namespace Penny_Wise.Controllers
             return _context.Transaction.Any(e => e.ID == id);
         }
 
-        private async void RecalculateAccountBalance(int accountId)
+        private async Task<int> RecalculateAccountBalance(int accountId)
         {
             var account = await _context.Accounts.SingleOrDefaultAsync(a => a.ID == accountId);
             double balance = account.Balance;
@@ -242,6 +255,8 @@ namespace Penny_Wise.Controllers
 
             account.Balance = balance;
             await _context.SaveChangesAsync();
+
+            return 0;
         }
 
         public IActionResult Error()
